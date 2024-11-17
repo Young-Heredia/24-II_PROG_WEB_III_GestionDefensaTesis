@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "PWIII Gestion Defensa Tesis/1.0.0": {
+        "runtime": {
+          "PWIII Gestion Defensa Tesis.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PWIII Gestion Defensa Tesis/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

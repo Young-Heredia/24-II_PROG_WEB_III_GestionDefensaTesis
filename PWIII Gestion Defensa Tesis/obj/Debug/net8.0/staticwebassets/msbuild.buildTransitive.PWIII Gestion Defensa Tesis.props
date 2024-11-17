@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\PWIII Gestion Defensa Tesis.props" />
+</Project>

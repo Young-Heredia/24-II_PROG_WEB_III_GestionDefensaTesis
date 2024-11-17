@@ -1,0 +1,30 @@
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\bin\Debug\net8.0\appsettings.Development.json
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\bin\Debug\net8.0\appsettings.json
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\bin\Debug\net8.0\PWIII Gestion Defensa Tesis.staticwebassets.runtime.json
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\bin\Debug\net8.0\PWIII Gestion Defensa Tesis.exe
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\bin\Debug\net8.0\PWIII Gestion Defensa Tesis.deps.json
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\bin\Debug\net8.0\PWIII Gestion Defensa Tesis.runtimeconfig.json
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\bin\Debug\net8.0\PWIII Gestion Defensa Tesis.dll
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\bin\Debug\net8.0\PWIII Gestion Defensa Tesis.pdb
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.GeneratedMSBuildEditorConfig.editorconfig
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.AssemblyInfoInputs.cache
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.AssemblyInfo.cs
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.csproj.CoreCompileInputs.cache
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.MvcApplicationPartsAssemblyInfo.cache
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.RazorAssemblyInfo.cache
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.RazorAssemblyInfo.cs
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\staticwebassets.build.json
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\staticwebassets.development.json
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\staticwebassets\msbuild.PWIII Gestion Defensa Tesis.Microsoft.AspNetCore.StaticWebAssets.props
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\staticwebassets\msbuild.build.PWIII Gestion Defensa Tesis.props
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.PWIII Gestion Defensa Tesis.props
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.PWIII Gestion Defensa Tesis.props
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\staticwebassets.pack.json
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\scopedcss\bundle\PWIII Gestion Defensa Tesis.styles.css
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\scopedcss\projectbundle\PWIII Gestion Defensa Tesis.bundle.scp.css
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.dll
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\refint\PWIII Gestion Defensa Tesis.dll
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.pdb
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\PWIII Gestion Defensa Tesis.genruntimeconfig.cache
+D:\UNIVALLE\GESTION II-2024 ISI\PROG.WEB III (B)\PWIII Gestion Defensa Tesis\PWIII Gestion Defensa Tesis\obj\Debug\net8.0\ref\PWIII Gestion Defensa Tesis.dll
