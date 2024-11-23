@@ -361,3 +361,27 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+
+
+
+# Visual Studio
+.vs/               # Archivos de configuración de Visual Studio
+.vscode/            # Archivos de configuración de VSCode
+.idea/              # Archivos de configuración de JetBrains (IntelliJ, Rider, WebStorm)
+# Archivos generados por compilación
+bin/                # Archivos de compilación
+obj/                # Archivos temporales y de compilación
+# Archivos de usuario
+userconfig.settings # Archivos de configuración del usuario de Visual Studio
+# Archivos de base de datos locales
+App_Data/           # Archivos de base de datos de aplicaciones web
+# Archivos temporales de la aplicación
+# Archivos de caché
+wwwroot/lib/        # Librerías de terceros descargadas por npm o similares
+# Archivos de error o temporales
+*.user              # Archivos de configuración de usuario de Visual Studio
+*.suo               # Archivos de usuario de solución de Visual Studio
+*.userosscache      # Caché de usuario de Visual Studio
+*.sln.docstates     # Archivos de estado de la solución en Visual Studio
