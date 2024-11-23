@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PWIII_Gestion_Defensa_Tesis.Models;
 
-public partial class Activity
+public partial class DefenseActivity
 {
     [Key]
     public int Id { get; set; }
@@ -13,7 +13,6 @@ public partial class Activity
     [StringLength(100, ErrorMessage = "{0} must be: minimum {2} and maximum {1}", MinimumLength = 10)]
     [Display(Name = "DESCRIPTION")]
     public string Description { get; set; } = null!;
-
 
     public byte Status { get; set; }
 
@@ -27,6 +26,8 @@ public partial class Activity
     public byte IdAudience { get; set; }
 
     public short IdStudent { get; set; }
+
+    public virtual ICollection<ActivityProfessional> ActivityProfessionals { get; set; } = new List<ActivityProfessional>();
 
     public virtual Audience IdAudienceNavigation { get; set; } = null!;
 

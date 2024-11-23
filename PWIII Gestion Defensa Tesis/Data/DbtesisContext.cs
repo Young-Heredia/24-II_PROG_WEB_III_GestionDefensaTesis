@@ -16,11 +16,11 @@ public partial class DbtesisContext : DbContext
     {
     }
 
-    public virtual DbSet<Activity> Activities { get; set; }
-
     public virtual DbSet<ActivityProfessional> ActivityProfessionals { get; set; }
 
     public virtual DbSet<Audience> Audiences { get; set; }
+
+    public virtual DbSet<DefenseActivity> DefenseActivities { get; set; }
 
     public virtual DbSet<Professional> Professionals { get; set; }
 
@@ -37,13 +37,52 @@ public partial class DbtesisContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Activity>(entity =>
+        modelBuilder.Entity<ActivityProfessional>(entity =>
         {
-            entity.ToTable("Activity");
+            entity.HasKey(e => e.IdActivityProfessional);
+
+            entity.ToTable("ActivityProfessional");
+
+            entity.Property(e => e.IdActivityProfessional).HasColumnName("idActivityProfessional");
+            entity.Property(e => e.IdActivity).HasColumnName("idActivity");
+            entity.Property(e => e.IdProfessional).HasColumnName("idProfessional");
+
+            entity.HasOne(d => d.IdActivityNavigation).WithMany(p => p.ActivityProfessionals)
+                .HasForeignKey(d => d.IdActivity)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ActivityProfessional_Activity");
+
+            entity.HasOne(d => d.IdProfessionalNavigation).WithMany(p => p.ActivityProfessionals)
+                .HasForeignKey(d => d.IdProfessional)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ActivityProfessional_Professional");
+        });
+
+        modelBuilder.Entity<Audience>(entity =>
+        {
+            entity.ToTable("Audience");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
+            entity.Property(e => e.Latitude).HasColumnName("latitude");
+            entity.Property(e => e.Longitude).HasColumnName("longitude");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("name");
+            entity.Property(e => e.Status)
+                .HasDefaultValue((byte)1)
+                .HasColumnName("status");
+        });
+
+        modelBuilder.Entity<DefenseActivity>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Activity");
+
+            entity.ToTable("DefenseActivity");
+
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DefenseDate)
                 .HasColumnType("datetime")
                 .HasColumnName("defenseDate");
@@ -58,65 +97,27 @@ public partial class DbtesisContext : DbContext
                 .HasDefaultValue((byte)1)
                 .HasColumnName("status");
 
-            entity.HasOne(d => d.IdAudienceNavigation).WithMany(p => p.Activities)
+            entity.HasOne(d => d.IdAudienceNavigation).WithMany(p => p.DefenseActivities)
                 .HasForeignKey(d => d.IdAudience)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Activity_Audience");
 
-            entity.HasOne(d => d.IdStudentNavigation).WithMany(p => p.Activities)
+            entity.HasOne(d => d.IdStudentNavigation).WithMany(p => p.DefenseActivities)
                 .HasForeignKey(d => d.IdStudent)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Activity_Student");
 
-            entity.HasOne(d => d.IdThesisNavigation).WithMany(p => p.Activities)
+            entity.HasOne(d => d.IdThesisNavigation).WithMany(p => p.DefenseActivities)
                 .HasForeignKey(d => d.IdThesis)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Activity_Thesis");
-        });
-
-        modelBuilder.Entity<ActivityProfessional>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("ActivityProfessional");
-
-            entity.Property(e => e.IdActivity).HasColumnName("idActivity");
-            entity.Property(e => e.IdProfessional).HasColumnName("idProfessional");
-
-            entity.HasOne(d => d.IdActivityNavigation).WithMany()
-                .HasForeignKey(d => d.IdActivity)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ActivityProfessional_Activity");
-
-            entity.HasOne(d => d.IdProfessionalNavigation).WithMany()
-                .HasForeignKey(d => d.IdProfessional)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ActivityProfessional_Professional");
-        });
-
-        modelBuilder.Entity<Audience>(entity =>
-        {
-            entity.ToTable("Audience");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Latitude).HasColumnName("latitude");
-            entity.Property(e => e.Longitude).HasColumnName("longitude");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("name");
-            entity.Property(e => e.Status)
-                .HasDefaultValue((byte)1)
-                .HasColumnName("status");
         });
 
         modelBuilder.Entity<Professional>(entity =>
         {
             entity.ToTable("Professional");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Career)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -142,9 +143,7 @@ public partial class DbtesisContext : DbContext
         {
             entity.ToTable("Student");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.LastName)
                 .HasMaxLength(60)
                 .IsUnicode(false)
@@ -166,9 +165,7 @@ public partial class DbtesisContext : DbContext
         {
             entity.ToTable("Thesis");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Description)
                 .HasMaxLength(120)
                 .IsUnicode(false)
@@ -192,7 +189,9 @@ public partial class DbtesisContext : DbContext
         {
             entity.ToTable("TypeThesis");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
             entity.Property(e => e.Name)
                 .HasMaxLength(60)
                 .IsUnicode(false)
@@ -203,9 +202,7 @@ public partial class DbtesisContext : DbContext
         {
             entity.ToTable("User");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Email)
                 .HasMaxLength(30)
                 .IsUnicode(false)

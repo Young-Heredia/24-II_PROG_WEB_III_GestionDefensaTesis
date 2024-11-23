@@ -25,4 +25,6 @@ public partial class Professional
     public string Career { get; set; } = null!;
 
     public byte Status { get; set; }
+
+    public virtual ICollection<ActivityProfessional> ActivityProfessionals { get; set; } = new List<ActivityProfessional>();
 }

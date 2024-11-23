@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\UNIVALLE\\GESTION II-2024 ISI\\PROG.WEB III (B)\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj": {}
+    "D:\\GITHUB\\24-II_PROG_WEB_III_GestionDefensaTesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj": {}
   },
   "projects": {
-    "D:\\UNIVALLE\\GESTION II-2024 ISI\\PROG.WEB III (B)\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj": {
+    "D:\\GITHUB\\24-II_PROG_WEB_III_GestionDefensaTesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\UNIVALLE\\GESTION II-2024 ISI\\PROG.WEB III (B)\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj",
+        "projectUniqueName": "D:\\GITHUB\\24-II_PROG_WEB_III_GestionDefensaTesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj",
         "projectName": "PWIII Gestion Defensa Tesis",
-        "projectPath": "D:\\UNIVALLE\\GESTION II-2024 ISI\\PROG.WEB III (B)\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj",
+        "projectPath": "D:\\GITHUB\\24-II_PROG_WEB_III_GestionDefensaTesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj",
         "packagesPath": "C:\\Users\\YOUNG\\.nuget\\packages\\",
-        "outputPath": "D:\\UNIVALLE\\GESTION II-2024 ISI\\PROG.WEB III (B)\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis\\obj\\",
+        "outputPath": "D:\\GITHUB\\24-II_PROG_WEB_III_GestionDefensaTesis\\PWIII Gestion Defensa Tesis\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

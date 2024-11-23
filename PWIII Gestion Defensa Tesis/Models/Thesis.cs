@@ -21,7 +21,7 @@ public partial class Thesis
 
     public byte Status { get; set; }
 
-    public virtual ICollection<Activity> Activities { get; set; } = new List<Activity>();
+    public virtual ICollection<DefenseActivity> DefenseActivities { get; set; } = new List<DefenseActivity>();
 
     public virtual TypeThesis IdTypeThesisNavigation { get; set; } = null!;
 }

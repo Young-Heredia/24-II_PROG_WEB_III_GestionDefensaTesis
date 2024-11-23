@@ -21,7 +21,8 @@ public partial class Audience
     [Display(Name = "AUDIENCE")]
     public string Name { get; set; } = null!;
 
+
     public byte Status { get; set; }
 
-    public virtual ICollection<Activity> Activities { get; set; } = new List<Activity>();
+    public virtual ICollection<DefenseActivity> DefenseActivities { get; set; } = new List<DefenseActivity>();
 }

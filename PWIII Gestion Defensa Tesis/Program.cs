@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using PWIII_Gestion_Defensa_Tesis.Data;
+
 namespace PWIII_Gestion_Defensa_Tesis
 {
     public class Program
@@ -9,7 +12,9 @@ namespace PWIII_Gestion_Defensa_Tesis
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            //builder.Services.AddDbContext<>
+            builder.Services.AddDbContext<DbtesisContext>(option =>
+                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+            );
 
 
 
@@ -32,7 +37,7 @@ namespace PWIII_Gestion_Defensa_Tesis
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Students}/{action=Index}/{id?}");
 
             app.Run();
         }

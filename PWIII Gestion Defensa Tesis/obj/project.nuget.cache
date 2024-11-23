@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "o80BZ2EARlmrfO60yd+ZY3rzS3Uln3VsFOWiz+5H4IiEVdlp0vanVfj6ALbASI5/MMT1Z0sc5HOcMMfrod/Kdw==",
+  "dgSpecHash": "4eylX/hn2taNMQBXOBYXeVnvp7y2jHyhxsDwi8J2ppf2AxfHPgaDaO/0pQcItrq1eTGFNwleUAef0pIcmMfC1g==",
   "success": true,
-  "projectFilePath": "D:\\UNIVALLE\\GESTION II-2024 ISI\\PROG.WEB III (B)\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj",
+  "projectFilePath": "D:\\GITHUB\\24-II_PROG_WEB_III_GestionDefensaTesis\\PWIII Gestion Defensa Tesis\\PWIII Gestion Defensa Tesis.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\YOUNG\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\YOUNG\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
