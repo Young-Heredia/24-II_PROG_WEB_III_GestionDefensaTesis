@@ -26,8 +26,10 @@ public partial class DefenseActivity
     public byte IdAudience { get; set; }
 
     public short IdStudent { get; set; }
+	public string StatusThesis { get; set; } = "Pendiente";
+	public DateTime registerDate { get; set; } = DateTime.Now;
 
-    public virtual ICollection<ActivityProfessional> ActivityProfessionals { get; set; } = new List<ActivityProfessional>();
+	public virtual ICollection<ActivityProfessional> ActivityProfessionals { get; set; } = new List<ActivityProfessional>();
 
     public virtual Audience IdAudienceNavigation { get; set; } = null!;
 

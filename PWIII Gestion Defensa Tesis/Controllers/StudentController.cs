@@ -65,6 +65,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,LastName,SecondLastName")] Student student)
         {
+
+            if (await IsCIDuplicated(student.ci))
+            {
+                ModelState.AddModelError(nameof(student.ci), "There is already an student with the same ci.");
+            }
             if (ModelState.IsValid)
             {
                 student.Status = 1; // Estado por defecto: Activo
@@ -97,6 +102,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("Id,Name,LastName,SecondLastName")] Student student)
         {
+            if (await IsCIDuplicated(student.ci))
+            {
+                ModelState.AddModelError(nameof(student.ci), "There is already an student with the same ci.");
+            }
             if (id != student.Id)
             {
                 return NotFound();
@@ -169,6 +178,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         private bool StudentExists(short id)
         {
             return _context.Students.Any(e => e.Id == id);
+        }
+
+        private async Task<bool> IsCIDuplicated(string ci)
+        {
+            return await _context.Students.AnyAsync(a => a.ci == ci);
         }
     }
 }

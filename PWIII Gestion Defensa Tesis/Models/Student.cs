@@ -8,19 +8,27 @@ public partial class Student
 {
     [Key]
     public short Id { get; set; }
-
-    [Required(ErrorMessage = "Name Student is required")]
+	[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters are allowed without spaces or special characters.")]
+	[Required(ErrorMessage = "Name Student is required")]
     [Display(Name = "NAME")]
     public string Name { get; set; } = null!;
 
-    [Required(ErrorMessage = "Lastname Student is required")]
+	[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters are allowed without spaces or special characters.")]
+	[Required(ErrorMessage = "Lastname Student is required")]
     [Display(Name = "LASTNAME")]
     public string LastName { get; set; } = null!;
 
-    [Display(Name = "SECOND LASTNAME")]
+	[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters are allowed without spaces or special characters.")]
+	[Display(Name = "SECOND LASTNAME")]
     public string? SecondLastName { get; set; }
 
-    public byte Status { get; set; }
+    [Required(ErrorMessage = "CI is required")]
+    [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Only letters and numbers are allowed without spaces or special characters.")]
+    [Display(Name = "CI")]
+    public string ci { get; set; }
 
-    public virtual ICollection<DefenseActivity> DefenseActivities { get; set; } = new List<DefenseActivity>();
+    public byte Status { get; set; }
+	public DateTime registerDate { get; set; } = DateTime.Now;
+
+	public virtual ICollection<DefenseActivity> DefenseActivities { get; set; } = new List<DefenseActivity>();
 }

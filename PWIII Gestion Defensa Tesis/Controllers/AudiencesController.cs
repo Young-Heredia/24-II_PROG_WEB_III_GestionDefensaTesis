@@ -52,23 +52,12 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Latitude,Longitude,Name")] Audience audience)
+        public async Task<IActionResult> Create([Bind("Id,Latitude,Longitude,Name, Direction")] Audience audience)
         {
-            // Validar duplicados
             if (await IsNameDuplicated(audience.Name))
             {
                 ModelState.AddModelError(nameof(audience.Name), "There is already an auditorium with the same name.");
             }
-
-            if (await IsLocationDuplicated(audience.Latitude, audience.Longitude))
-            {
-                ModelState.AddModelError(nameof(audience.Latitude), "There is already a registered auditorium at this location.");
-                ModelState.AddModelError(nameof(audience.Longitude), "There is already a registered auditorium at this location.");
-            }
-
-            // Asegurar formato correcto de las coordenadas
-            audience.Latitude = NormalizeCoordinate(audience.Latitude);
-            audience.Longitude = NormalizeCoordinate(audience.Longitude);
 
             if (ModelState.IsValid)
             {
@@ -96,8 +85,15 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(byte id, [Bind("Id,Latitude,Longitude,Name,Status")] Audience audience)
+        public async Task<IActionResult> Edit(byte id, [Bind("Id,Latitude,Longitude,Name,Status, Direction")] Audience audience)
         {
+            Console.WriteLine(audience.Latitude);
+            Console.WriteLine(audience.Longitude);
+
+            if (await IsNameDuplicated(audience.Name))
+            {
+                ModelState.AddModelError(nameof(audience.Name), "There is already an auditorium with the same name.");
+            }
             if (id != audience.Id)
             {
                 return NotFound();
@@ -168,19 +164,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return await _context.Audiences.AnyAsync(a => a.Name == name);
         }
 
-        private async Task<bool> IsLocationDuplicated(double latitude, double longitude)
+        private async Task<bool> IsLocationDuplicated(decimal latitude, decimal longitude)
         {
             return await _context.Audiences.AnyAsync(a => a.Latitude == latitude && a.Longitude == longitude);
         }
 
-        private double NormalizeCoordinate(double coordinate)
-        {
-            // Si la coordenada es mayor o igual a 1000 (sin punto), la normalizamos
-            if (coordinate >= 1000)
-            {
-                return coordinate / 1000.0;
-            }
-            return coordinate; // Si ya está en formato correcto, no hacemos nada
-        }
     }
 }

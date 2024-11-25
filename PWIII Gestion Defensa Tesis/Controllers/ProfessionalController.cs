@@ -71,6 +71,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,LastName,SecondLastName,Career")] Professional professional)
         {
+            if (await IsCIDuplicated(professional.ci))
+            {
+                ModelState.AddModelError(nameof(professional.ci), "There is already an professional with the same ci.");
+            }
             if (ModelState.IsValid)
             {
                 professional.Status = 1; // Estado por defecto: Activo
@@ -103,6 +107,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("Id,Name,LastName,SecondLastName,Career")] Professional professional)
         {
+            if (await IsCIDuplicated(professional.ci))
+            {
+                ModelState.AddModelError(nameof(professional.ci), "There is already an professional with the same ci.");
+            }
             if (id != professional.Id)
             {
                 return NotFound();
@@ -177,6 +185,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         private bool ProfessionalExists(short id)
         {
             return _context.Professionals.Any(e => e.Id == id);
+        }
+        private async Task<bool> IsCIDuplicated(string ci)
+        {
+            return await _context.Professionals.AnyAsync(a => a.ci == ci);
         }
     }
 }

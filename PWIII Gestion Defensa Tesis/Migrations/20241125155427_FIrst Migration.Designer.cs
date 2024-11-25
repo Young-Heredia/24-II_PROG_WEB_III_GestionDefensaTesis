@@ -12,15 +12,15 @@ using PWIII_Gestion_Defensa_Tesis.Data;
 namespace PWIII_Gestion_Defensa_Tesis.Migrations
 {
     [DbContext(typeof(DbtesisContext))]
-    [Migration("20241125034841_firstmigration")]
-    partial class firstmigration
+    [Migration("20241125155427_FIrst Migration")]
+    partial class FIrstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -60,12 +60,16 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<byte>("Id"));
 
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float")
+                    b.Property<string>("Direction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Latitude")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("latitude");
 
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float")
+                    b.Property<decimal>("Longitude")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("longitude");
 
                     b.Property<string>("Name")
@@ -80,6 +84,9 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .HasColumnType("tinyint")
                         .HasDefaultValue((byte)1)
                         .HasColumnName("status");
+
+                    b.Property<DateTime>("registerDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -123,6 +130,13 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .HasColumnType("tinyint")
                         .HasDefaultValue((byte)1)
                         .HasColumnName("status");
+
+                    b.Property<string>("StatusThesis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("registerDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id")
                         .HasName("PK_Activity");
@@ -178,6 +192,13 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .HasDefaultValue((byte)1)
                         .HasColumnName("status");
 
+                    b.Property<string>("ci")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("registerDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Professional", (string)null);
@@ -218,6 +239,13 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .HasDefaultValue((byte)1)
                         .HasColumnName("status");
 
+                    b.Property<string>("ci")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("registerDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Student", (string)null);
@@ -256,6 +284,9 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .HasDefaultValue((byte)1)
                         .HasColumnName("status");
 
+                    b.Property<DateTime>("registerDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdTypeThesis");
@@ -278,6 +309,9 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(60)")
                         .HasColumnName("name");
+
+                    b.Property<DateTime>("registerDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
