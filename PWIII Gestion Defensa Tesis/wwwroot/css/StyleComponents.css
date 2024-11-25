@@ -1,0 +1,9 @@
+﻿.form-check-label {
+    font-size: 1.1rem;
+    margin-right: 15px;
+}
+
+.form-check-input {
+    transform: scale(1.2);
+    margin-right: 5px;
+}

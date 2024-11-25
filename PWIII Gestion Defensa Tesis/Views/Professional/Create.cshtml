@@ -1,0 +1,30 @@
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.Professional
+
+<h1>Create Professional</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SecondLastName"></label>
+        <input asp-for="SecondLastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Career"></label>
+        <input asp-for="Career" class="form-control" />
+        <span asp-validation-for="Career" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</p>

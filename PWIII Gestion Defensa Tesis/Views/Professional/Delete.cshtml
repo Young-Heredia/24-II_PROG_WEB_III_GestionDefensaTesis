@@ -1,0 +1,25 @@
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.Professional
+
+<h1>Delete Professional</h1>
+
+<h4>Are you sure you want to delete this professional?</h4>
+<div>
+    <dl class="row">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+        <dt>Last Name</dt>
+        <dd>@Model.LastName</dd>
+        <dt>Second Last Name</dt>
+        <dd>@Model.SecondLastName</dd>
+        <dt>Career</dt>
+        <dd>@Model.Career</dd>
+        <dt>Status</dt>
+        <dd>@Model.Status</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

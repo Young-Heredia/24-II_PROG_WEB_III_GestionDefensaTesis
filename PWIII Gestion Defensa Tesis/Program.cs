@@ -37,7 +37,7 @@ namespace PWIII_Gestion_Defensa_Tesis
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Students}/{action=Index}/{id?}");
+                pattern: "{controller=Student}/{action=Index}/{id?}");
 
             app.Run();
         }
