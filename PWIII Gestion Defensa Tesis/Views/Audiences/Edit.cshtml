@@ -1,0 +1,56 @@
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.Audience
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Columna del formulario -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <h4>Edit Audience</h4>
+            <hr />
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Latitude" class="control-label"></label>
+                    <input asp-for="Latitude" class="form-control" readonly />
+                    <span asp-validation-for="Latitude" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Longitude" class="control-label"></label>
+                    <input asp-for="Longitude" class="form-control" readonly />
+                    <span asp-validation-for="Longitude" class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex gap-2">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Columna del mapa -->
+        <div class="col-lg-6 col-md-12">
+            <div id="mapContainer" class="map-container"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=loadMap" async defer></script>
+    <script>
+        function loadMap() {
+            var map = new Microsoft.Maps.Map(document.getElementById('mapContainer'), {
+                credentials: 'TU_CLAVE_VALIDA',
+                center: new Microsoft.Maps.Location(47.6062, -122.3321), // Seattle
+                zoom: 10
+            });
+        }
+    </script>
+}

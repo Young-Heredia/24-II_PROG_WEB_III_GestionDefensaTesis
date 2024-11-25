@@ -18,11 +18,12 @@ public partial class Audience
     public double Longitude { get; set; }
 
     [Required(ErrorMessage = "Audience is required")]
-    [Display(Name = "AUDIENCE")]
+    [Display(Name = "NAME AUDIENCE")]
+    [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters are allowed without spaces or special characters.")]
     public string Name { get; set; } = null!;
 
 
-    public byte Status { get; set; }
+    public byte Status { get; set; } = 1;
 
     public virtual ICollection<DefenseActivity> DefenseActivities { get; set; } = new List<DefenseActivity>();
 }
