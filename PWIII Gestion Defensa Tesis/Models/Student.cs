@@ -20,7 +20,7 @@ public partial class Student
 
 	[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only letters are allowed without spaces or special characters.")]
 	[Display(Name = "SECOND LASTNAME")]
-    public string? SecondLastName { get; set; }
+    public string? SecondLastName { get; set; } 
 
     [Required(ErrorMessage = "CI is required")]
     [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Only letters and numbers are allowed without spaces or special characters.")]

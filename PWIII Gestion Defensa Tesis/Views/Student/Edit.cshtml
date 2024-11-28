@@ -17,6 +17,12 @@
     <div class="form-group">
         <label asp-for="SecondLastName"></label>
         <input asp-for="SecondLastName" class="form-control" />
+        <span asp-validation-for="SecondLastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ci"></label>
+        <input asp-for="ci" class="form-control" />
+        <span asp-validation-for="ci" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>

@@ -11,11 +11,11 @@ public partial class Audience
 
     [Required(ErrorMessage = "Latitude is required")]
     [Display(Name = "LATITUDE")]
-    public decimal Latitude { get; set; }
+    public string Latitude { get; set; }
 
     [Required(ErrorMessage = "Longitude is required")]
     [Display(Name = "LONGITUDE")]
-    public decimal Longitude { get; set; }
+    public string Longitude { get; set; }
 
     [Required(ErrorMessage = "Audience is required")]
     [Display(Name = "NAME AUDIENCE")]
@@ -24,7 +24,10 @@ public partial class Audience
 
 	[Display(Name = "DIRECTION")]
 	[Required(ErrorMessage = "Direction is required")]
-	public string Direction { get; set; } 
+	public string Direction { get; set; }
+    [Display(Name = "AUDITORIUM IMAGE")]
+    [Required(ErrorMessage = "Image is required")]
+    public string Image { get; set; }
     public byte Status { get; set; } = 1;
 	public DateTime registerDate { get; set; } = DateTime.Now;
 

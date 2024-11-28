@@ -9,33 +9,49 @@
         <div class="col-lg-6 col-md-12 mb-4">
             <h4>Audience</h4>
             <hr />
-            <form asp-action="Create">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Nombre -->
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
+
+                <!-- Latitud -->
                 <div class="form-group">
                     <label asp-for="Latitude" class="control-label"></label>
-                    <input asp-for="Latitude" class="form-control"  />
+                    <input asp-for="Latitude" class="form-control" readonly />
                     <span asp-validation-for="Latitude" class="text-danger"></span>
                 </div>
+
+                <!-- Longitud -->
                 <div class="form-group">
                     <label asp-for="Longitude" class="control-label"></label>
-                    <input asp-for="Longitude" class="form-control"  />
+                    <input asp-for="Longitude" class="form-control" readonly />
                     <span asp-validation-for="Longitude" class="text-danger"></span>
                 </div>
+
+                <!-- Dirección -->
                 <div class="form-group">
                     <label asp-for="Direction" class="control-label"></label>
-                    <input asp-for="Direction" class="form-control"/>
+                    <input asp-for="Direction" class="form-control" />
                     <span asp-validation-for="Direction" class="text-danger"></span>
                 </div>
+
+                <!-- Imagen -->
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input type="file" id="Image" name="Image" class="form-control" accept="image/*" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+
+                <!-- Botones -->
                 <div class="form-group d-flex gap-2">
                     <input type="submit" value="Create" class="btn btn-primary" />
                     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
                 </div>
-
             </form>
         </div>
 
@@ -49,35 +65,11 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=loadMap" async defer></script>
-
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=loadMapCreate" async defer></script>
+    <script type="text/javascript" src="~/js/MapScript.js"></script>
     <script>
-        var map; 
-        var pin;
-
-        function loadMap() {
-            map = new Microsoft.Maps.Map(document.getElementById('mapContainer'), {
-                credentials: 'AgqOaEk-a82xj49nR5TlSVCRSO_tOw0yV3PSCnfUiD533uSOhRpQO5HaqzoYAmlh',
-                center: new Microsoft.Maps.Location(-17.338097, -66.218838),
-                zoom: 15 
-            });
-
-            Microsoft.Maps.Events.addHandler(map, 'click', addPin);
-        }
-
-        function addPin(e) {
-            var location = e.location;
-            if (pin) {
-                map.entities.remove(pin);
-            }
-            pin = new Microsoft.Maps.Pushpin(location, {
-                color: 'red' 
-            });
-
-            map.entities.push(pin);
-
-            document.querySelector('input[name="Latitude"]').value = location.latitude.toFixed(6);
-            document.querySelector('input[name="Longitude"]').value = location.longitude.toFixed(6);
+        function loadMapCreate() {
+            loadMapForCreate('AgqOaEk-a82xj49nR5TlSVCRSO_tOw0yV3PSCnfUiD533uSOhRpQO5HaqzoYAmlh');
         }
     </script>
 }

@@ -15,11 +15,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         }
 
         // GET: Professional
-        public async Task<IActionResult> Index(string filter = "active")
+        public async Task<IActionResult> Index(string filter = "active", string searchQuery = "")
         {
             IQueryable<Professional> professionalsQuery = _context.Professionals;
 
-            // Filtrar según el parámetro recibido
             if (filter == "active")
             {
                 professionalsQuery = professionalsQuery.Where(p => p.Status == 1);
@@ -29,12 +28,24 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 professionalsQuery = professionalsQuery.Where(p => p.Status == 0);
             }
 
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                professionalsQuery = professionalsQuery.Where(p =>
+                    EF.Functions.Like(p.Name ?? "", $"%{searchQuery}%") || 
+                    EF.Functions.Like(p.LastName ?? "", $"%{searchQuery}%") ||
+                    EF.Functions.Like(p.SecondLastName ?? "", $"%{searchQuery}%") ||
+                    EF.Functions.Like(p.Career ?? "", $"%{searchQuery}%") ||
+                    EF.Functions.Like(p.ci ?? "", $"%{searchQuery}%"));
+            }
+
+
             var professionals = await professionalsQuery
                 .Include(p => p.ActivityProfessionals)
                 .ThenInclude(ap => ap.IdActivityNavigation)
                 .ToListAsync();
 
-            ViewBag.Filter = filter; // Para mantener el estado del filtro en la vista
+            ViewBag.Filter = filter; 
+            ViewBag.SearchQuery = searchQuery;
             return View(professionals);
         }
 
@@ -46,12 +57,12 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             {
                 return NotFound();
             }
-
+            
             var professional = await _context.Professionals
                 .Include(p => p.ActivityProfessionals)
                 .ThenInclude(ap => ap.IdActivityNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
+            
             if (professional == null)
             {
                 return NotFound();
@@ -69,7 +80,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         // POST: Professional/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,LastName,SecondLastName,Career")] Professional professional)
+        public async Task<IActionResult> Create([Bind("Id,Name,LastName,SecondLastName,Career,ci")] Professional professional)
         {
             if (await IsCIDuplicated(professional.ci))
             {
@@ -77,7 +88,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             }
             if (ModelState.IsValid)
             {
-                professional.Status = 1; // Estado por defecto: Activo
+                if (professional.SecondLastName == null)
+                {
+                    professional.SecondLastName = "Ninguno";
+                }
+                professional.Status = 1; 
                 _context.Add(professional);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -95,6 +110,12 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             }
 
             var professional = await _context.Professionals.FindAsync(id);
+
+            if (professional.SecondLastName == "Ninguno")
+            {
+                professional.SecondLastName = "";
+            }
+            
             if (professional == null)
             {
                 return NotFound();
@@ -105,7 +126,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         // POST: Professional/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("Id,Name,LastName,SecondLastName,Career")] Professional professional)
+        public async Task<IActionResult> Edit(short id, [Bind("Id,Name,LastName,SecondLastName,Career,ci")] Professional professional)
         {
             if (await IsCIDuplicated(professional.ci))
             {
@@ -120,6 +141,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             {
                 try
                 {
+                    if (professional.SecondLastName == "Ninguno")
+                    {
+                        professional.SecondLastName = "";
+                    }
                     var existingProfessional = await _context.Professionals.FindAsync(id);
                     if (existingProfessional != null)
                     {
@@ -175,7 +200,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             var professional = await _context.Professionals.FindAsync(id);
             if (professional != null)
             {
-                professional.Status = 0; // Cambiar a Inactivo
+                professional.Status = 0; 
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
@@ -190,5 +215,22 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         {
             return await _context.Professionals.AnyAsync(a => a.ci == ci);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reactivate(short id)
+        {
+            var professional = await _context.Professionals.FindAsync(id);
+            if (professional == null)
+            {
+                return NotFound();
+            }
+
+            professional.Status = 1; // Cambiar estado a activo
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index), new { filter = "inactive" }); // Regresar a la lista de inactivos
+        }
+
     }
 }

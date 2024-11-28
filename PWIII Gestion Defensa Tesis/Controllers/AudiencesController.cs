@@ -52,11 +52,17 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Latitude,Longitude,Name, Direction")] Audience audience)
+        public async Task<IActionResult> Create([Bind("Id,Latitude,Longitude,Name, Direction, Image")] Audience audience)
         {
             if (await IsNameDuplicated(audience.Name))
             {
                 ModelState.AddModelError(nameof(audience.Name), "There is already an auditorium with the same name.");
+            }
+           
+            if (!decimal.TryParse(audience.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), out var latitude) ||
+            !decimal.TryParse(audience.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture), out var longitude))
+            {
+                ModelState.AddModelError("", "Invalid coordinates format.");
             }
 
             if (ModelState.IsValid)
@@ -85,18 +91,18 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(byte id, [Bind("Id,Latitude,Longitude,Name,Status, Direction")] Audience audience)
+        public async Task<IActionResult> Edit(byte id, [Bind("Id,Latitude,Longitude,Name,Status, Direction, Image")] Audience audience)
         {
-            Console.WriteLine(audience.Latitude);
-            Console.WriteLine(audience.Longitude);
 
-            if (await IsNameDuplicated(audience.Name))
-            {
-                ModelState.AddModelError(nameof(audience.Name), "There is already an auditorium with the same name.");
-            }
             if (id != audience.Id)
             {
                 return NotFound();
+            }
+
+            if (!decimal.TryParse(audience.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), out var latitude) ||
+            !decimal.TryParse(audience.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture), out var longitude))
+            {
+                ModelState.AddModelError("", "Invalid coordinates format.");
             }
 
             if (ModelState.IsValid)
@@ -164,7 +170,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return await _context.Audiences.AnyAsync(a => a.Name == name);
         }
 
-        private async Task<bool> IsLocationDuplicated(decimal latitude, decimal longitude)
+        private async Task<bool> IsLocationDuplicated(string latitude, string longitude)
         {
             return await _context.Audiences.AnyAsync(a => a.Latitude == latitude && a.Longitude == longitude);
         }

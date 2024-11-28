@@ -61,12 +61,18 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("latitude");
 
-                    b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("Longitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("longitude");
 
                     b.Property<string>("Name")
@@ -274,6 +280,9 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(120)")
                         .HasColumnName("name");
+
+                    b.Property<double>("Note")
+                        .HasColumnType("float");
 
                     b.Property<byte>("Status")
                         .ValueGeneratedOnAdd()

@@ -15,11 +15,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         }
 
         // GET: Student
-        public async Task<IActionResult> Index(string filter = "active")
+        public async Task<IActionResult> Index(string filter = "active", string searchQuery = "")
         {
             IQueryable<Student> studentsQuery = _context.Students;
 
-            // Filtrar según el parámetro recibido
             if (filter == "active")
             {
                 studentsQuery = studentsQuery.Where(s => s.Status == 1);
@@ -29,8 +28,20 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 studentsQuery = studentsQuery.Where(s => s.Status == 0);
             }
 
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                studentsQuery = studentsQuery.Where(s =>
+                    EF.Functions.Like(s.Name ?? "", $"%{searchQuery}%") || 
+                    EF.Functions.Like(s.LastName ?? "", $"%{searchQuery}%") ||
+                    EF.Functions.Like(s.SecondLastName ?? "", $"%{searchQuery}%") ||
+                    EF.Functions.Like(s.ci ?? "", $"%{searchQuery}%"));
+            }
+
+
             var students = await studentsQuery.Include(s => s.DefenseActivities).ToListAsync();
-            ViewBag.Filter = filter; // Para mantener el estado del filtro en la vista
+            ViewBag.Filter = filter; 
+            ViewBag.SearchQuery = searchQuery;
             return View(students);
         }
 
@@ -46,7 +57,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             var student = await _context.Students
                 .Include(s => s.DefenseActivities)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
             if (student == null)
             {
                 return NotFound();
@@ -63,7 +73,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,LastName,SecondLastName")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,Name,LastName,SecondLastName,ci")] Student student)
         {
 
             if (await IsCIDuplicated(student.ci))
@@ -72,7 +82,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             }
             if (ModelState.IsValid)
             {
-                student.Status = 1; // Estado por defecto: Activo
+                if (student.SecondLastName == null)
+                {
+                    student.SecondLastName = "Ninguno";
+                }
+                student.Status = 1;
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -90,6 +104,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             }
 
             var student = await _context.Students.FindAsync(id);
+            if (student.SecondLastName == "Ninguno")
+            {
+                student.SecondLastName = "";
+            }
             if (student == null)
             {
                 return NotFound();
@@ -100,7 +118,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("Id,Name,LastName,SecondLastName")] Student student)
+        public async Task<IActionResult> Edit(short id, [Bind("Id,Name,LastName,SecondLastName,ci")] Student student)
         {
             if (await IsCIDuplicated(student.ci))
             {
@@ -115,6 +133,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             {
                 try
                 {
+                    if (student.SecondLastName == null)
+                    {
+                        student.SecondLastName = "Ninguno";
+                    }
                     var existingStudent = await _context.Students.FindAsync(id);
                     if (existingStudent != null)
                     {
@@ -168,7 +190,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             var student = await _context.Students.FindAsync(id);
             if (student != null)
             {
-                student.Status = 0; // Cambiar a Inactivo
+                student.Status = 0; 
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
@@ -183,6 +205,22 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         private async Task<bool> IsCIDuplicated(string ci)
         {
             return await _context.Students.AnyAsync(a => a.ci == ci);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reactivate(short id)
+        {
+            var student = await _context.Students.FindAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            student.Status = 1; // Cambiar el estado a activo
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index), new { filter = "inactive" }); // Volver a la lista de inactivos
         }
     }
 }

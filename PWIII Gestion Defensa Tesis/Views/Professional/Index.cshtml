@@ -2,32 +2,35 @@
 
 <h1>Professionals</h1>
 
-<!-- Botón para crear un nuevo profesional -->
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New Professional</a>
 </p>
 
-<!-- Filtro de Activos/Inactivos -->
-<form method="get" class="mb-4" id="filterForm">
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="filter" id="active" value="active"
-        @(ViewBag.Filter == "active" ? "checked" : "") onchange="document.getElementById('filterForm').submit();" />
-        <label class="form-check-label" for="active">Mostrar Activos</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="filter" id="inactive" value="inactive"
-        @(ViewBag.Filter == "inactive" ? "checked" : "") onchange="document.getElementById('filterForm').submit();" />
-        <label class="form-check-label" for="inactive">Mostrar Inactivos</label>
+<form method="get" action="@Url.Action("Index")" class="mb-4">
+    <div class="form-row align-items-center">
+        <div class="col-sm-4">
+            <input type="text" id="searchQuery" name="searchQuery" value="@ViewBag.SearchQuery" class="form-control" placeholder="Search by Name, Last Name, CI..." />
+        </div>
+        <div class="col-sm-3">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="filter" id="active" value="active" @(ViewBag.Filter == "active" ? "checked" : "") onchange="this.form.submit();" />
+                <label class="form-check-label" for="active">Show Active</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="filter" id="inactive" value="inactive" @(ViewBag.Filter == "inactive" ? "checked" : "") onchange="this.form.submit();" />
+                <label class="form-check-label" for="inactive">Show Inactive</label>
+            </div>
+        </div>
     </div>
 </form>
 
-<!-- Tabla de Datos -->
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
-            <th>@Html.DisplayNameFor(model => model.First().LastName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Career)</th>
+            <th>Name</th>
+            <th>Last Name</th>
+            <th>Career</th>
+            <th>CI</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
@@ -36,14 +39,25 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-                <td>@Html.DisplayFor(modelItem => item.Career)</td>
+                <td>@item.Name</td>
+                <td>@item.LastName</td>
+                <td>@item.Career</td>
+                <td>@item.ci</td>
                 <td>@(item.Status == 1 ? "Active" : "Inactive")</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    @if (ViewBag.Filter == "inactive")
+                    {
+                        <form asp-action="Reactivate" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-success">Recover</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    }
                 </td>
             </tr>
         }

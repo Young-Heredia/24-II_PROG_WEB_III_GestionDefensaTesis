@@ -18,6 +18,11 @@ public partial class Thesis
 	[Display(Name = "DESCRIPTION")]
 	[RegularExpression(@"^[a-zA-Z0-9.]+$", ErrorMessage = "Description cannot contain special characters or spaces.")]
 	public string Description { get; set; } = null!;
+    [Required(ErrorMessage = "Note is required")]
+    [Display(Name = "NOTE")]
+    [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "The note must be a valid number (no letters or special characters).")]
+    [Range(0, double.MaxValue, ErrorMessage = "The note must be a positive number.")]
+    public double Note { get; set; }
     public byte IdTypeThesis { get; set; }
 	public byte Status { get; set; }
 	public DateTime registerDate { get; set; } = DateTime.Now;

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PWIII_Gestion_Defensa_Tesis.Migrations
 {
     /// <inheritdoc />
-    public partial class FIrstMigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,10 +17,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                 {
                     id = table.Column<byte>(type: "tinyint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     Direction = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
                     registerDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -105,6 +106,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "varchar(120)", unicode: false, maxLength: 120, nullable: false),
                     description = table.Column<string>(type: "varchar(120)", unicode: false, maxLength: 120, nullable: false),
+                    Note = table.Column<double>(type: "float", nullable: false),
                     idTypeThesis = table.Column<byte>(type: "tinyint", nullable: false),
                     status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
                     registerDate = table.Column<DateTime>(type: "datetime2", nullable: false)
