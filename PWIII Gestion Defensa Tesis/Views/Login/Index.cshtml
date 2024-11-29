@@ -1,0 +1,65 @@
+﻿@model User
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/account/Account.css" asp-append-version="true" />
+
+    <title>Document</title>
+</head>
+<body>
+
+    <section>
+        <div class="box">
+            <div class="container-doc">
+                <div class="top">
+                    <span class="text-title">Do you have an account?</span>
+                    <h2>Sign In to Account</h2>
+                </div>
+
+                <form method="post">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="input-field">
+                        <input asp-for="UserName" type="email" class="input" placeholder="Username" required>
+                    </div>
+                    <div class="input-field">
+                        <input asp-for="Password" type="password" class="input" placeholder="Password" required>
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="input-field">
+                        <!--<input asp-for=".Name" class="input" value="n" hidden />
+                        <input asp-for="user.FirstName" class="input" value="n" hidden />
+                        <input asp-for="user.rePassword" class="input" value="n" hidden />-->
+                    </div>
+                    <div class="input-field btn-submit">
+                        <button type="submit" class="submit">Sign In</button>
+                    </div>
+                </form>
+
+                <div class="btn-redirect">
+                    <p>
+                        <a asp-page="/Account/Register">Don't have an account? Register</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}

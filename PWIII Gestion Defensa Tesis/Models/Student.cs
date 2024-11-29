@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PWIII_Gestion_Defensa_Tesis.Models;
 
@@ -28,7 +29,15 @@ public partial class Student
     public string ci { get; set; }
 
     public byte Status { get; set; }
+
 	public DateTime registerDate { get; set; } = DateTime.Now;
 
 	public virtual ICollection<DefenseActivity> DefenseActivities { get; set; } = new List<DefenseActivity>();
+
+
+
+
+    [NotMapped]
+    public string? Email { get; set; }
+
 }
