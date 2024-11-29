@@ -12,6 +12,6 @@ public partial class TypeThesis
     [Required(ErrorMessage = "Name Thesis is required")]
     [Display(Name = "NAME")]
     public string Name { get; set; } = null!;
-
-    public virtual ICollection<Thesis> Theses { get; set; } = new List<Thesis>();
+	public DateTime registerDate { get; set; } = DateTime.Now;
+	public virtual ICollection<Thesis> Theses { get; set; } = new List<Thesis>();
 }
