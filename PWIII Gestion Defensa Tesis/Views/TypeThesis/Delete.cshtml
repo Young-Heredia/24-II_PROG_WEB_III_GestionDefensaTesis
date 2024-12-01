@@ -1,4 +1,4 @@
-﻿@model PWIII_Gestion_Defensa_Tesis.Models.Audience
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.TypeThesis
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,18 +13,16 @@
                     <h3>Are you sure you want to delete this?</h3>
                 </div>
                 <div class="card-body">
-                    <h4>Audience Information</h4>
+                    <h4>TypeThesis Information</h4>
                     <hr />
 
                     <dl class="row">
                         <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.Name)</strong></dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
-                        <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.Direction)</strong></dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Direction)</dd>
-                        <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.Latitude)</strong></dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Latitude)</dd>
-                        <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.Longitude)</strong></dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Longitude)</dd>
+                        <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.Description)</strong></dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+                        <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.registerDate)</strong></dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.registerDate)</dd>
                     </dl>
 
                     <div class="alert alert-warning mt-4">

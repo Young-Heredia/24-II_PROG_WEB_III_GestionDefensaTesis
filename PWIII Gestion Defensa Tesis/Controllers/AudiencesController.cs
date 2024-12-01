@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PWIII_Gestion_Defensa_Tesis.Data;
 using PWIII_Gestion_Defensa_Tesis.Models;
@@ -52,21 +47,50 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Latitude,Longitude,Name, Direction, Image")] Audience audience)
+        public async Task<IActionResult> Create([Bind("Id,Latitude,Longitude,Name,Direction,ImagePath")] Audience audience, IFormFile imageFile)
         {
-            if (await IsNameDuplicated(audience.Name))
+            if (await IsNameDuplicated(audience.Name, audience.Id))
             {
-                ModelState.AddModelError(nameof(audience.Name), "There is already an auditorium with the same name.");
+                ModelState.AddModelError(nameof(audience.Name), "There is already an Auditorium with the same name.");
             }
-           
-            if (!decimal.TryParse(audience.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), out var latitude) ||
-            !decimal.TryParse(audience.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture), out var longitude))
+
+            if (string.IsNullOrEmpty(audience.ImagePath) && (imageFile == null || imageFile.Length == 0))
             {
-                ModelState.AddModelError("", "Invalid coordinates format.");
+                ModelState.AddModelError(nameof(audience.ImagePath), "An image is required.");
+            }
+            else if (imageFile != null && imageFile.Length > 0)
+            {
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+                var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    ModelState.AddModelError(nameof(audience.ImagePath), "Only image files (jpg, jpeg, png, gif, bmp) are allowed.");
+                }
             }
 
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "auditoriums");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+
+                    var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
+                    var fileName = Guid.NewGuid().ToString() + fileExtension;
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+
+                    audience.ImagePath = "/images/auditoriums/" + fileName;
+                }
+
                 _context.Add(audience);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -74,6 +98,8 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
             return View(audience);
         }
+
+
         public async Task<IActionResult> Edit(byte? id)
         {
             if (id == null)
@@ -91,42 +117,64 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(byte id, [Bind("Id,Latitude,Longitude,Name,Status, Direction, Image")] Audience audience)
+        public async Task<IActionResult> Edit([Bind("Id,Latitude,Longitude,Name,Direction,ImagePath")] Audience audience, IFormFile? imageFile)
         {
 
-            if (id != audience.Id)
+            if (await IsNameDuplicated(audience.Name, audience.Id))
             {
-                return NotFound();
+                ModelState.AddModelError(nameof(audience.Name), "There is already an Auditorium with the same name.");
             }
 
-            if (!decimal.TryParse(audience.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture), out var latitude) ||
-            !decimal.TryParse(audience.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture), out var longitude))
+            string fileExtension = "";
+            if (imageFile != null && imageFile.Length > 0)
             {
-                ModelState.AddModelError("", "Invalid coordinates format.");
+                fileExtension = Path.GetExtension(imageFile.FileName).ToLower();  
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    ModelState.AddModelError(nameof(audience.ImagePath), "Only image files (jpg, jpeg, png, gif, bmp) are allowed.");
+                }
             }
 
             if (ModelState.IsValid)
             {
-                try
+                if (imageFile != null && imageFile.Length > 0)
                 {
-                    _context.Update(audience);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AudienceExists(audience.Id))
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "auditoriums");
+                    if (!Directory.Exists(uploadsFolder))
                     {
-                        return NotFound();
+                        Directory.CreateDirectory(uploadsFolder);
                     }
-                    else
+
+                    if (!string.IsNullOrEmpty(audience.ImagePath))
                     {
-                        throw;
+                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "auditoriums", audience.ImagePath.Replace("/images/auditoriums/", ""));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath); 
+                        }
                     }
+
+                    var fileName = Guid.NewGuid().ToString() + fileExtension;
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+
+                    audience.ImagePath = "/images/auditoriums/" + fileName;
                 }
+
+                _context.Update(audience);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(audience);
         }
+
 
         public async Task<IActionResult> Delete(byte? id)
         {
@@ -145,7 +193,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(audience);
         }
 
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(byte id)
@@ -153,27 +200,22 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             var audience = await _context.Audiences.FindAsync(id);
             if (audience != null)
             {
-                _context.Audiences.Remove(audience);
+                audience.Status = 0;
+                _context.Update(audience);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool AudienceExists(byte id)
         {
             return _context.Audiences.Any(e => e.Id == id);
         }
 
-        private async Task<bool> IsNameDuplicated(string name)
+        private async Task<bool> IsNameDuplicated(string name, int? currentId = null)
         {
-            return await _context.Audiences.AnyAsync(a => a.Name == name);
+            return await _context.Audiences
+                .AnyAsync(a => a.Name == name && (!currentId.HasValue || a.Id != currentId.Value));
         }
-
-        private async Task<bool> IsLocationDuplicated(string latitude, string longitude)
-        {
-            return await _context.Audiences.AnyAsync(a => a.Latitude == latitude && a.Longitude == longitude);
-        }
-
     }
 }

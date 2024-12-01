@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PWIII_Gestion_Defensa_Tesis.Data;
 
@@ -11,9 +12,11 @@ using PWIII_Gestion_Defensa_Tesis.Data;
 namespace PWIII_Gestion_Defensa_Tesis.Migrations
 {
     [DbContext(typeof(DbtesisContext))]
-    partial class DbtesisContextModelSnapshot : ModelSnapshot
+    [Migration("20241201142613_third migration")]
+    partial class thirdmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,19 +311,12 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<byte>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(60)
                         .IsUnicode(false)
                         .HasColumnType("varchar(60)")
                         .HasColumnName("name");
-
-                    b.Property<byte>("Status")
-                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("registerDate")
                         .HasColumnType("datetime2");
