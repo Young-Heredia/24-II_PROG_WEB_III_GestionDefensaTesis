@@ -7,7 +7,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Models;
 public partial class TypeThesis
 {
     [Key]
-    public byte Id { get; set; }
+    public int Id { get; set; }
 
     [StringLength(30, MinimumLength = 4, ErrorMessage = "The Name must be between 4 and 30 characters.")]
     [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$", ErrorMessage = "Only letters, including accented characters and single spaces between words are allowed.")]

@@ -207,7 +207,8 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        private bool AudienceExists(byte id)
+
+        private bool AudienceExists(int id)
         {
             return _context.Audiences.Any(e => e.Id == id);
         }

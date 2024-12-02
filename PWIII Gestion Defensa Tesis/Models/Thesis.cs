@@ -23,7 +23,7 @@ public partial class Thesis
     [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "The note must be a valid number (no letters or special characters).")]
     [Range(0, double.MaxValue, ErrorMessage = "The note must be a positive number.")]
     public double Note { get; set; }
-    public byte IdTypeThesis { get; set; }
+    public int IdTypeThesis { get; set; }
 	public byte Status { get; set; }
 	public DateTime registerDate { get; set; } = DateTime.Now;
 	public virtual ICollection<DefenseActivity> DefenseActivities { get; set; } = new List<DefenseActivity>();

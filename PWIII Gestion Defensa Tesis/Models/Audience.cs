@@ -7,7 +7,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Models;
 public partial class Audience
 {
     [Key]
-    public byte Id { get; set; }
+    public int Id { get; set; }
 
     [Required(ErrorMessage = "Audience is required")]
     [Display(Name = "NAME AUDIENCE")]
