@@ -59,7 +59,8 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
 
                     b.Property<string>("Direction")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
@@ -286,6 +287,9 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .HasColumnType("varchar(120)")
                         .HasColumnName("description");
 
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("IdTypeThesis")
                         .HasColumnType("int")
                         .HasColumnName("idTypeThesis");
@@ -327,7 +331,8 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -200,31 +200,6 @@ public partial class DbtesisContext : DbContext
                 .HasColumnName("name");
         });
 
-        /*modelBuilder.Entity<User>(entity =>
-        {
-            entity.ToTable("User");
-
-            entity.Property(e => e.UserId).HasColumnName("id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(30)
-                .IsUnicode(false)
-                .HasColumnName("email");
-            entity.Property(e => e.Password)
-                .HasMaxLength(34)
-                .HasColumnName("password");
-            entity.Property(e => e.Role)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("role");
-            entity.Property(e => e.Status)
-                .HasDefaultValue((byte)1)
-                .HasColumnName("status");
-            entity.Property(e => e.UserName)
-                .HasMaxLength(40)
-                .IsUnicode(false)
-                .HasColumnName("userName");
-        });*/
-
         OnModelCreatingPartial(modelBuilder);
     }
 

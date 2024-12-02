@@ -14,7 +14,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             _context = context;
         }
 
-        // GET: Professional
         public async Task<IActionResult> Index(string filter = "active", string searchQuery = "")
         {
             IQueryable<Professional> professionalsQuery = _context.Professionals;
@@ -49,8 +48,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(professionals);
         }
 
-
-        // GET: Professional/Details/5
         public async Task<IActionResult> Details(short? id)
         {
             if (id == null)
@@ -71,13 +68,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(professional);
         }
 
-        // GET: Professional/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Professional/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,LastName,SecondLastName,Career,ci")] Professional professional)
@@ -100,8 +95,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(professional);
         }
 
-
-        // GET: Professional/Edit/5
         public async Task<IActionResult> Edit(short? id)
         {
             if (id == null)
@@ -123,7 +116,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(professional);
         }
 
-        // POST: Professional/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("Id,Name,LastName,SecondLastName,Career,ci")] Professional professional)
@@ -172,8 +164,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(professional);
         }
 
-
-        // GET: Professional/Delete/5
         public async Task<IActionResult> Delete(short? id)
         {
             if (id == null)
@@ -192,7 +182,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(professional);
         }
 
-        // POST: Professional/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(short id)
@@ -206,11 +195,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         private bool ProfessionalExists(short id)
         {
             return _context.Professionals.Any(e => e.Id == id);
         }
+
         private async Task<bool> IsCIDuplicated(string ci)
         {
             return await _context.Professionals.AnyAsync(a => a.ci == ci);
@@ -226,10 +215,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 return NotFound();
             }
 
-            professional.Status = 1; // Cambiar estado a activo
+            professional.Status = 1;
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index), new { filter = "inactive" }); // Regresar a la lista de inactivos
+            return RedirectToAction(nameof(Index), new { filter = "inactive" });
         }
 
     }

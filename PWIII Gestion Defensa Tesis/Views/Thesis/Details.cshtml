@@ -1,0 +1,33 @@
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.Thesis
+
+<h1>Thesis Details</h1>
+
+<div>
+    <h4>Thesis</h4>
+    <dl class="row">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+        <dt>Description</dt>
+        <dd>@Model.Description</dd>
+        <dt>Type</dt>
+        <dd>@Model.IdTypeThesisNavigation?.Name</dd>
+        <dt>Status</dt>
+        <dd>@(Model.Status == 1 ? "Active" : "Inactive")</dd>
+        <dt>File</dt>
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.FilePath) && Model.FilePath != "Sin Thesis")
+            {
+                <a href="@Url.Content(Model.FilePath)" class="btn btn-success" target="_blank">Download Thesis</a>
+            }
+            else
+            {
+                <span>No file available</span>
+            }
+        </dd>
+    </dl>
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</p>

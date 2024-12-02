@@ -23,7 +23,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(activeAudiences);
         }
 
-        public async Task<IActionResult> Details(byte? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -100,7 +100,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         }
 
 
-        public async Task<IActionResult> Edit(byte? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -176,7 +176,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         }
 
 
-        public async Task<IActionResult> Delete(byte? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -195,7 +195,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(byte id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var audience = await _context.Audiences.FindAsync(id);
             if (audience != null)

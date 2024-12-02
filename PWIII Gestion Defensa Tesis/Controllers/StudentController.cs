@@ -14,7 +14,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             _context = context;
         }
 
-        // GET: Student
         public async Task<IActionResult> Index(string filter = "active", string searchQuery = "")
         {
             IQueryable<Student> studentsQuery = _context.Students;
@@ -46,7 +45,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         }
 
 
-        // GET: Student/Details/5
         public async Task<IActionResult> Details(short? id)
         {
             if (id == null)
@@ -65,7 +63,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(student);
         }
 
-        // GET: Student/Create
+
         public IActionResult Create()
         {
             return View();
@@ -95,7 +93,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         }
 
 
-        // GET: Student/Edit/5
         public async Task<IActionResult> Edit(short? id)
         {
             if (id == null)
@@ -164,7 +161,6 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
         }
 
 
-        // GET: Student/Delete/5
         public async Task<IActionResult> Delete(short? id)
         {
             if (id == null)
@@ -217,10 +213,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 return NotFound();
             }
 
-            student.Status = 1; // Cambiar el estado a activo
+            student.Status = 1; 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index), new { filter = "inactive" }); // Volver a la lista de inactivos
+            return RedirectToAction(nameof(Index), new { filter = "inactive" }); 
         }
     }
 }
