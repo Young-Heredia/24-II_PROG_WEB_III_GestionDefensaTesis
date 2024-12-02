@@ -9,23 +9,16 @@
         <div class="col-lg-6 col-md-12 mb-4">
             <h4>Edit Audience</h4>
             <hr />
-            <form asp-action="Edit">
+            <form asp-action="Edit" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
+
+                <input type="hidden" asp-for="ImagePath" />
+
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Latitude" class="control-label"></label>
-                    <input asp-for="Latitude" class="form-control"  readonly/>
-                    <span asp-validation-for="Latitude" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Longitude" class="control-label"></label>
-                    <input asp-for="Longitude" class="form-control"  readonly/>
-                    <span asp-validation-for="Longitude" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Direction" class="control-label"></label>
@@ -33,10 +26,37 @@
                     <span asp-validation-for="Direction" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Image" class="control-label"></label>
-                    <input asp-for="Image" class="form-control" />
-                    <span asp-validation-for="Image" class="text-danger"></span>
+                    <label asp-for="Latitude" class="control-label"></label>
+                    <input asp-for="Latitude" class="form-control" readonly />
+                    <span asp-validation-for="Latitude" class="text-danger"></span>
                 </div>
+
+                <div class="form-group">
+                    <label asp-for="Longitude" class="control-label"></label>
+                    <input asp-for="Longitude" class="form-control" readonly />
+                    <span asp-validation-for="Longitude" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    @if (string.IsNullOrEmpty(Model.ImagePath))
+                    {
+                        <input type="file" class="form-control" id="ImageFile" name="imageFile" />
+                    }
+                    else
+                    {
+                        <div class="mb-2">
+                            <label>Current Image:</label>
+                            <div class="mb-2">
+                                <img src="@Model.ImagePath" alt="Auditorium Image" style="max-width: 200px; max-height: 200px;" />
+                            </div>
+                            <span>Image already uploaded. </span>
+                        </div>
+                        <input type="file" class="form-control" id="ImageFile" name="imageFile" />
+                        <label for="ImageFile" class="file-input-label" id="fileLabel">Change file</label>
+                    }
+                    <span asp-validation-for="ImagePath" class="text-danger"></span>
+                </div>
+
                 <div class="form-group d-flex gap-2">
                     <input type="submit" value="Save" class="btn btn-primary" />
                     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
@@ -44,11 +64,12 @@
             </form>
         </div>
 
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-6 col-md-12 mt-4 mt-md-0">
             <div id="mapContainer" class="map-container"></div>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?callback=loadMapEdit" async defer></script>

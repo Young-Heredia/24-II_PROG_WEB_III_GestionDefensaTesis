@@ -1,10 +1,10 @@
-﻿@model IEnumerable<PWIII_Gestion_Defensa_Tesis.Models.Audience>
+﻿@model IEnumerable<PWIII_Gestion_Defensa_Tesis.Models.TypeThesis>
 
 @{
-    ViewData["Title"] = "AUDIENCES";
+    ViewData["Title"] = "Index";
 }
 
-<h1>AUDIENCES</h1>
+<h1>TYPES OF THESIS</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New Audience</a>
@@ -16,14 +16,8 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Direction)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longitude)
-            </th>           
             <th>ACTIONS</th>
         </tr>
     </thead>
@@ -34,14 +28,8 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Direction)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitude)
-            </td>            
             <td>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">
                         <i class="fas fa-eye"></i> Details
