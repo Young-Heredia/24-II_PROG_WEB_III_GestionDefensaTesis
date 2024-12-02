@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(await _context.TypeTheses.ToListAsync());
         }
 
-        public async Task<IActionResult> Details(byte? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -63,7 +63,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(typeThesis);
         }
 
-        public async Task<IActionResult> Edit(byte? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -80,7 +80,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(byte id, [Bind("Id,Name,Description")] TypeThesis typeThesis)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] TypeThesis typeThesis)
         {
 
             if (id != typeThesis.Id)
@@ -116,7 +116,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return View(typeThesis);
         }
 
-        public async Task<IActionResult> Delete(byte? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -135,7 +135,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(byte id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var typeThesis = await _context.TypeTheses.FindAsync(id);
             if (typeThesis != null)
@@ -147,7 +147,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TypeThesisExists(byte id)
+        private bool TypeThesisExists(int id)
         {
             return _context.TypeTheses.Any(e => e.Id == id);
         }

@@ -1,0 +1,27 @@
+LO lindo de crear software es ver como funciona por ello no debemos limitar a nuestros usuarios esta bien que exploren del como funciona algo
+por sino no tendria sentido cuando alguien descarga algo nuevo es para aprender como funciona, entonces no debemos limitarlo debemos cuidarlos
+en el sentido de intragrar validaciones para evitar que se congele el programa etc, los usuarios son muy curiosos y eso esta bien
+parte de nuestro trabajo es ayudarlos con ese recorrido evitando que comentan alguna error mientras exploran nuestro software
+
+Nuestro objetivo siempre es facilitar a nuestros usuarios en sus tareas cotidianas para ello existe nuestro software para ayudar al colegio de professionales
+a tener un correcto manejo de las actividades que realizan como registro de tesis, profesionales, estudiantes, y manejo de notificaiones automatizadas
+para asi facilitar a nuestros usuarios
+
+Crear una necesidad para vender algo, en este caso creamos la necesidad que pasaria si voy por un descando digamos que estoy cansado de estar muchas horas delante de mi computadora para \
+solo notificaiones ahi es donde entra nuestro sistema, esta parte permite que nuestros usuarios puedan estar alejados de la computadora mientras nuestro sistema realiza su trabajo por ellos
+enviando notificaiones que el usuairo definio para cierta hora y fecha, nosotros las enviamos, hacemos como si fuera un servidor
+
+En caso de que quieran probar el programa aveces puede ser inconsistente el tema de envio de notificaiones automatizadas debido a que, mas alla de un simple tema de progamacion, es mas
+un tema de seguridad y politica debido a que muchos programasa como whatsap ya tienen un sistema mas avanzado que el nuestro para enviar notificaciones es mas consistente y mejor
+pero como nada es gratis siempre tiene un precio, en nuestro programa lo que nosotros hicimos es buscar la forma de que sea gratis con el costo de algunas resrtricciones como la incosistencia
+pero al final de cuentas esa es nuestra labor como ingenieros de sistemas informaticos buscar una solucion a cada problema que se nos presentem, sino no podriamos llamarnos ingenieros no?
+por ello encontramos esta forma de implementar un sistema de notificaones automatizadas de manera gratuita.
+
+REQUISITOS
+AL CERRAR TODAS LAS VENTANAS NO PONER RESTAURAR LA VENTANA POR DEFECTO PORQUE AHI TRABAJA SELENIUM SE CIERRAN LAS VENTANA PARA EVITAR QUE AL INICIAR EL PROGRAMA SE DETECTE UNA VENTANA abierta
+tener en cuenta que se cierran todas las ventanas puede restaurar las demas donde tenga una session pero la de default no le de a restaurar
+
+NO ENTRAR A WHATSAPP WEB EN LA Ventana DE DEFAULT SELENIUM SE ENCARGA DE ESO SINO OBSTRUYE SU TRABAJO
+
+TENER LA Ventana DE WHATSAP EN LA PANTALLA NO EN SEGUNDO PLANO PARA QUE SELENIUM DETECTE LA VENTANA puede estar atras de otras ventanas
+

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PWIII_Gestion_Defensa_Tesis.Migrations
 {
     /// <inheritdoc />
-    public partial class firstMigration : Migration
+    public partial class dataMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    Direction = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    name = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    Direction = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
                     registerDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -87,6 +87,8 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "varchar(60)", unicode: false, maxLength: 60, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Status = table.Column<byte>(type: "tinyint", nullable: false),
                     registerDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -128,6 +130,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                     Note = table.Column<double>(type: "float", nullable: false),
                     idTypeThesis = table.Column<int>(type: "int", nullable: false),
                     status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     registerDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
