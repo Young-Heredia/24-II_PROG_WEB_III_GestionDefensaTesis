@@ -1,0 +1,72 @@
+﻿/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(90deg, #003973, #E5E5BE);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.navbar .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+    .navbar .nav-link:hover {
+        color: #ffd700; /* Gold hover effect */
+    }
+
+/* Footer */
+footer {
+    background-color: #002244;
+    color: #ffffff;
+}
+
+    footer small {
+        display: block;
+        font-size: 0.9rem;
+        color: #ccc;
+    }
+
+/* Buttons */
+.btn-primary {
+    background-color: #004085;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #003060;
+    }
+
+/* Custom Tables */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+    margin-top: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .table thead th {
+        background-color: #003973;
+        color: white;
+        text-align: center;
+    }
+
+    .table tbody td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+/* Custom Shadows */
+.shadow {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
