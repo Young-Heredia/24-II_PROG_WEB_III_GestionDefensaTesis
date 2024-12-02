@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PWIII_Gestion_Defensa_Tesis.Models.Professional>
+
+<h1>Professionals</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Professional</a>
+</p>
+
+<form method="get" action="@Url.Action("Index")" class="mb-4">
+    <div class="form-row align-items-center">
+        <div class="col-sm-4">
+            <input type="text" id="searchQuery" name="searchQuery" value="@ViewBag.SearchQuery" class="form-control" placeholder="Search by Name, Last Name, CI..." />
+        </div>
+        <div class="col-sm-3">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="filter" id="active" value="active" @(ViewBag.Filter == "active" ? "checked" : "") onchange="this.form.submit();" />
+                <label class="form-check-label" for="active">Show Active</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="filter" id="inactive" value="inactive" @(ViewBag.Filter == "inactive" ? "checked" : "") onchange="this.form.submit();" />
+                <label class="form-check-label" for="inactive">Show Inactive</label>
+            </div>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Last Name</th>
+            <th>Career</th>
+            <th>CI</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.LastName</td>
+                <td>@item.Career</td>
+                <td>@item.ci</td>
+                <td>@(item.Status == 1 ? "Active" : "Inactive")</td>
+                <td>
+                    @if (ViewBag.Filter == "inactive")
+                    {
+                        <form asp-action="Reactivate" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-success">Recover</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">
+                            <i class="fas fa-eye"></i> Details
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

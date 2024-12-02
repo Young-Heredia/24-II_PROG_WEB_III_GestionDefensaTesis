@@ -1,0 +1,45 @@
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.Professional
+
+<h1>Details</h1>
+
+<div>
+    <h4>Professional</h4>
+    <dl class="row">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+        <dt>Last Name</dt>
+        <dd>@Model.LastName</dd>
+        <dt>Second Last Name</dt>
+        <dd>@Model.SecondLastName</dd>
+        <dt>Career</dt>
+        <dd>@Model.Career</dd>
+        <dt>CI</dt>
+        <dd>@Model.ci</dd>
+        <dt>Status</dt>
+        <dd>@Model.Status</dd>
+    </dl>
+</div>
+
+<h3>Related Defense Activities</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Defense Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var activity in Model.ActivityProfessionals.Select(ap => ap.IdActivityNavigation))
+        {
+            <tr>
+                <td>@activity.Description</td>
+                <td>@activity.DefenseDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</p>

@@ -1,0 +1,35 @@
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.TypeThesis
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Details</h1>
+    <h3 class="text-center mb-4">View Details of Type Thesis</h3>
+
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            <h4>Type Thesis Information</h4>
+            <hr />
+            <dl class="row">
+
+                <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.Name)</strong></dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.Description)</strong></dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt class="col-sm-4"><strong>@Html.DisplayNameFor(model => model.registerDate)</strong></dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.registerDate)</dd>
+
+            </dl>
+
+        </div>
+    </div>
+
+    <div class="form-group d-flex gap-3 mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary btn-lg">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary btn-lg">Back to List</a>
+    </div>
+</div>
