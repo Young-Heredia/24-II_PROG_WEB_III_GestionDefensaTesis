@@ -226,10 +226,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 return NotFound();
             }
 
-            professional.Status = 1; // Cambiar estado a activo
+            professional.Status = 1; 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index), new { filter = "inactive" }); // Regresar a la lista de inactivos
+            return RedirectToAction(nameof(Index), new { filter = "inactive" }); 
         }
 
     }

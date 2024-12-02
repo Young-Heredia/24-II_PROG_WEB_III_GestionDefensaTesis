@@ -1,48 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PWIII_Gestion_Defensa_Tesis.Data;
 using PWIII_Gestion_Defensa_Tesis.Models;
+using PWIII_Gestion_Defensa_Tesis.Data;
 
 namespace PWIII_Gestion_Defensa_Tesis.Controllers
 {
-    public class AudiencesController : Controller
+    public class TypeThesisController : Controller
     {
         private readonly DbtesisContext _context;
 
-        public AudiencesController(DbtesisContext context)
+        public TypeThesisController(DbtesisContext context)
         {
             _context = context;
         }
 
+        // GET: TypeThesis
         public async Task<IActionResult> Index(string filter = "active", string searchQuery = "")
         {
-            IQueryable<Audience> audienceQuery = _context.Audiences;
+            IQueryable<TypeThesis> typeThesisQuery = _context.TypeTheses;
 
- 
+  
             if (filter == "active")
             {
-                audienceQuery = audienceQuery.Where(a => a.Status == 1);
+                typeThesisQuery = typeThesisQuery.Where(t => t.Status == 1);
             }
             else if (filter == "inactive")
             {
-                audienceQuery = audienceQuery.Where(a => a.Status == 0);
+                typeThesisQuery = typeThesisQuery.Where(t => t.Status == 0);
             }
 
-  
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
-                audienceQuery = audienceQuery.Where(a =>
-                    EF.Functions.Like(a.Name ?? "", $"%{searchQuery}%") ||
-                    EF.Functions.Like(a.Direction ?? "", $"%{searchQuery}%"));
+                typeThesisQuery = typeThesisQuery.Where(t =>
+                    EF.Functions.Like(t.Name ?? "", $"%{searchQuery}%"));
             }
 
-            var audiences = await audienceQuery.ToListAsync();
+            var typeTheses = await typeThesisQuery.ToListAsync();
             ViewBag.Filter = filter;
             ViewBag.SearchQuery = searchQuery;
-
-            return View(audiences);
+            return View(typeTheses);
         }
 
+        // GET: TypeThesis/Details/5
         public async Task<IActionResult> Details(byte? id)
         {
             if (id == null)
@@ -50,41 +49,38 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 return NotFound();
             }
 
-            var audience = await _context.Audiences
+            var typeThesis = await _context.TypeTheses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (audience == null)
+            if (typeThesis == null)
             {
                 return NotFound();
             }
 
-            return View(audience);
+            return View(typeThesis);
         }
 
+        // GET: TypeThesis/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        // POST: TypeThesis/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Latitude,Longitude,Name,Direction,Image")] Audience audience)
+        public async Task<IActionResult> Create([Bind("Id,Name")] TypeThesis typeThesis)
         {
-            if (await IsNameDuplicated(audience.Name))
-            {
-                ModelState.AddModelError(nameof(audience.Name), "There is already an auditorium with the same name.");
-            }
-
             if (ModelState.IsValid)
             {
-                audience.Status = 1; 
-                _context.Add(audience);
+                typeThesis.Status = 1;
+                _context.Add(typeThesis);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(audience);
+            return View(typeThesis);
         }
 
+        // GET: TypeThesis/Edit/5
         public async Task<IActionResult> Edit(byte? id)
         {
             if (id == null)
@@ -92,19 +88,20 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 return NotFound();
             }
 
-            var audience = await _context.Audiences.FindAsync(id);
-            if (audience == null)
+            var typeThesis = await _context.TypeTheses.FindAsync(id);
+            if (typeThesis == null)
             {
                 return NotFound();
             }
-            return View(audience);
+            return View(typeThesis);
         }
 
+        // POST: TypeThesis/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(byte id, [Bind("Id,Latitude,Longitude,Name,Status,Direction,Image")] Audience audience)
+        public async Task<IActionResult> Edit(byte id, [Bind("Id,Name")] TypeThesis typeThesis)
         {
-            if (id != audience.Id)
+            if (id != typeThesis.Id)
             {
                 return NotFound();
             }
@@ -113,12 +110,12 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             {
                 try
                 {
-                    _context.Update(audience);
+                    _context.Update(typeThesis);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AudienceExists(audience.Id))
+                    if (!TypeThesisExists(typeThesis.Id))
                     {
                         return NotFound();
                     }
@@ -129,10 +126,10 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(audience);
+            return View(typeThesis);
         }
 
+        // GET: TypeThesis/Delete/5
         public async Task<IActionResult> Delete(byte? id)
         {
             if (id == null)
@@ -140,53 +137,50 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
                 return NotFound();
             }
 
-            var audience = await _context.Audiences
+            var typeThesis = await _context.TypeTheses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (audience == null)
+            if (typeThesis == null)
             {
                 return NotFound();
             }
 
-            return View(audience);
+            return View(typeThesis);
         }
 
+        // POST: TypeThesis/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(byte id)
         {
-            var audience = await _context.Audiences.FindAsync(id);
-            if (audience != null)
+            var typeThesis = await _context.TypeTheses.FindAsync(id);
+            if (typeThesis != null)
             {
-                audience.Status = 0; 
+                typeThesis.Status = 0; 
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: TypeThesis/Reactivate
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Reactivate(byte id)
         {
-            var audience = await _context.Audiences.FindAsync(id);
-            if (audience == null)
+            var typeThesis = await _context.TypeTheses.FindAsync(id);
+            if (typeThesis == null)
             {
                 return NotFound();
             }
 
-            audience.Status = 1; 
+            typeThesis.Status = 1; 
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index), new { filter = "inactive" });
         }
 
-        private bool AudienceExists(byte id)
+        private bool TypeThesisExists(byte id)
         {
-            return _context.Audiences.Any(e => e.Id == id);
-        }
-
-        private async Task<bool> IsNameDuplicated(string name)
-        {
-            return await _context.Audiences.AnyAsync(a => a.Name == name);
+            return _context.TypeTheses.Any(e => e.Id == id);
         }
     }
 }

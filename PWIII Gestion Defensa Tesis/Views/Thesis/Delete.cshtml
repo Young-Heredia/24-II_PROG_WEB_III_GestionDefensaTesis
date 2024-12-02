@@ -1,0 +1,25 @@
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.Thesis
+
+<h1>Delete Thesis</h1>
+
+<h4>Are you sure you want to delete this thesis?</h4>
+<div>
+    <dl class="row">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+        <dt>Description</dt>
+        <dd>@Model.Description</dd>
+        <dt>Type</dt>
+        <dd>@Model.IdTypeThesisNavigation?.Name</dd>
+        <dt>Status</dt>
+        <dd>@(Model.Status == 1 ? "Active" : "Inactive")</dd>
+        <dt>File Path</dt>
+        <dd>@Model.FilePath</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,15 +1,15 @@
-﻿@model IEnumerable<PWIII_Gestion_Defensa_Tesis.Models.Audience>
+﻿@model IEnumerable<PWIII_Gestion_Defensa_Tesis.Models.TypeThesis>
 
-<h1>AUDIENCES</h1>
+<h1>Thesis Types</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New Audience</a>
+    <a href="@Url.Action("Create")" class="btn btn-primary">Create New Thesis Type</a>
 </p>
 
 <form method="get" action="@Url.Action("Index")" class="mb-4">
     <div class="form-row align-items-center">
         <div class="col-sm-4">
-            <input type="text" id="searchQuery" name="searchQuery" value="@ViewBag.SearchQuery" class="form-control" placeholder="Search by Name or Direction..." />
+            <input type="text" id="searchQuery" name="searchQuery" value="@ViewBag.SearchQuery" class="form-control" placeholder="Search by Name..." />
         </div>
         <div class="col-sm-3">
             <div class="form-check form-check-inline">
@@ -28,9 +28,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Direction</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
+            <th>Registration Date</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -39,9 +37,7 @@
         {
             <tr>
                 <td>@item.Name</td>
-                <td>@item.Direction</td>
-                <td>@item.Latitude</td>
-                <td>@item.Longitude</td>
+                <td>@item.registerDate.ToString("dd/MM/yyyy")</td>
                 <td>
                     @if (ViewBag.Filter == "inactive")
                     {
@@ -52,9 +48,9 @@
                     }
                     else
                     {
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info">Details</a>
+                        <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning">Edit</a>
+                        <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
                     }
                 </td>
             </tr>

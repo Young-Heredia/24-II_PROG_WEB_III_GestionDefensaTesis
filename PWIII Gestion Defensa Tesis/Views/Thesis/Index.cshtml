@@ -1,15 +1,15 @@
-﻿@model IEnumerable<PWIII_Gestion_Defensa_Tesis.Models.Audience>
+﻿@model IEnumerable<PWIII_Gestion_Defensa_Tesis.Models.Thesis>
 
-<h1>AUDIENCES</h1>
+<h1>Theses</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New Audience</a>
+    <a asp-action="Create" class="btn btn-primary">Create New Thesis</a>
 </p>
 
 <form method="get" action="@Url.Action("Index")" class="mb-4">
     <div class="form-row align-items-center">
         <div class="col-sm-4">
-            <input type="text" id="searchQuery" name="searchQuery" value="@ViewBag.SearchQuery" class="form-control" placeholder="Search by Name or Direction..." />
+            <input type="text" id="searchQuery" name="searchQuery" value="@ViewBag.SearchQuery" class="form-control" placeholder="Search by Name, Description..." />
         </div>
         <div class="col-sm-3">
             <div class="form-check form-check-inline">
@@ -28,9 +28,9 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Direction</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -39,9 +39,9 @@
         {
             <tr>
                 <td>@item.Name</td>
-                <td>@item.Direction</td>
-                <td>@item.Latitude</td>
-                <td>@item.Longitude</td>
+                <td>@item.Description</td>
+                <td>@item.IdTypeThesisNavigation?.Name</td>
+                <td>@(item.Status == 1 ? "Active" : "Inactive")</td>
                 <td>
                     @if (ViewBag.Filter == "inactive")
                     {

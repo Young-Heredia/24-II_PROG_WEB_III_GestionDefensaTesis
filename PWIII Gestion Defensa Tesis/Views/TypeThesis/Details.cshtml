@@ -1,0 +1,18 @@
+﻿@model PWIII_Gestion_Defensa_Tesis.Models.TypeThesis
+
+<h1>Thesis Type Details</h1>
+
+<div>
+    <h4>Thesis Type</h4>
+    <dl class="row">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+        <dt>Registration Date</dt>
+        <dd>@Model.registerDate.ToString("dd/MM/yyyy")</dd>
+    </dl>
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</p>
