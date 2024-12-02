@@ -32,6 +32,8 @@ public partial class DbtesisContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public DbSet<Role> Rols { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
 
@@ -198,11 +200,11 @@ public partial class DbtesisContext : DbContext
                 .HasColumnName("name");
         });
 
-        modelBuilder.Entity<User>(entity =>
+        /*modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("User");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.UserId).HasColumnName("id");
             entity.Property(e => e.Email)
                 .HasMaxLength(30)
                 .IsUnicode(false)
@@ -221,7 +223,7 @@ public partial class DbtesisContext : DbContext
                 .HasMaxLength(40)
                 .IsUnicode(false)
                 .HasColumnName("userName");
-        });
+        });*/
 
         OnModelCreatingPartial(modelBuilder);
     }

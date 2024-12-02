@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PWIII_Gestion_Defensa_Tesis.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class firstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                 name: "Audience",
                 columns: table => new
                 {
-                    id = table.Column<byte>(type: "tinyint", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -50,6 +50,19 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rols",
+                columns: table => new
+                {
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RolName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rols", x => x.RoleId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Student",
                 columns: table => new
                 {
@@ -71,7 +84,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                 name: "TypeThesis",
                 columns: table => new
                 {
-                    id = table.Column<byte>(type: "tinyint", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "varchar(60)", unicode: false, maxLength: 60, nullable: false),
                     registerDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -82,20 +95,26 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
-                    id = table.Column<short>(type: "smallint", nullable: false)
+                    UserId = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    role = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
-                    status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
-                    password = table.Column<byte[]>(type: "varbinary(34)", maxLength: 34, nullable: false),
-                    userName = table.Column<string>(type: "varchar(40)", unicode: false, maxLength: 40, nullable: false),
-                    email = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<byte>(type: "tinyint", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.id);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Users_Rols_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Rols",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,7 +126,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                     name = table.Column<string>(type: "varchar(120)", unicode: false, maxLength: 120, nullable: false),
                     description = table.Column<string>(type: "varchar(120)", unicode: false, maxLength: 120, nullable: false),
                     Note = table.Column<double>(type: "float", nullable: false),
-                    idTypeThesis = table.Column<byte>(type: "tinyint", nullable: false),
+                    idTypeThesis = table.Column<int>(type: "int", nullable: false),
                     status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
                     registerDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -131,7 +150,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                     status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
                     defenseDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     idThesis = table.Column<int>(type: "int", nullable: false),
-                    idAudience = table.Column<byte>(type: "tinyint", nullable: false),
+                    idAudience = table.Column<int>(type: "int", nullable: false),
                     idStudent = table.Column<short>(type: "smallint", nullable: false),
                     StatusThesis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     registerDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -209,6 +228,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                 name: "IX_Thesis_idTypeThesis",
                 table: "Thesis",
                 column: "idTypeThesis");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
         }
 
         /// <inheritdoc />
@@ -218,13 +242,16 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                 name: "ActivityProfessional");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "DefenseActivity");
 
             migrationBuilder.DropTable(
                 name: "Professional");
+
+            migrationBuilder.DropTable(
+                name: "Rols");
 
             migrationBuilder.DropTable(
                 name: "Audience");

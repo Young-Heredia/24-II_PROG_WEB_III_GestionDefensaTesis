@@ -7,7 +7,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Models;
 public partial class TypeThesis
 {
     [Key]
-    public byte Id { get; set; }
+    public int Id { get; set; }
 
     [Required(ErrorMessage = "Name Thesis is required")]
     [Display(Name = "NAME")]

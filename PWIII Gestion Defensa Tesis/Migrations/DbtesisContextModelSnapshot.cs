@@ -50,12 +50,12 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
 
             modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.Audience", b =>
                 {
-                    b.Property<byte>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<byte>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Direction")
                         .IsRequired()
@@ -116,8 +116,8 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .HasColumnType("varchar(120)")
                         .HasColumnName("description");
 
-                    b.Property<byte>("IdAudience")
-                        .HasColumnType("tinyint")
+                    b.Property<int>("IdAudience")
+                        .HasColumnType("int")
                         .HasColumnName("idAudience");
 
                     b.Property<short>("IdStudent")
@@ -207,6 +207,23 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                     b.ToTable("Professional", (string)null);
                 });
 
+            modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("RolName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Rols");
+                });
+
             modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.Student", b =>
                 {
                     b.Property<short>("Id")
@@ -270,8 +287,8 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                         .HasColumnType("varchar(120)")
                         .HasColumnName("description");
 
-                    b.Property<byte>("IdTypeThesis")
-                        .HasColumnType("tinyint")
+                    b.Property<int>("IdTypeThesis")
+                        .HasColumnType("int")
                         .HasColumnName("idTypeThesis");
 
                     b.Property<string>("Name")
@@ -302,12 +319,12 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
 
             modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.TypeThesis", b =>
                 {
-                    b.Property<byte>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<byte>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -326,49 +343,35 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
 
             modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.User", b =>
                 {
-                    b.Property<short>("Id")
+                    b.Property<short>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint")
-                        .HasColumnName("id");
+                        .HasColumnType("smallint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("UserId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("email");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Password")
                         .IsRequired()
-                        .HasMaxLength(34)
-                        .HasColumnType("varbinary(34)")
-                        .HasColumnName("password");
+                        .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("role");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
-                        .HasDefaultValue((byte)1)
-                        .HasColumnName("status");
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(40)")
-                        .HasColumnName("userName");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
-                    b.ToTable("User", (string)null);
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.ActivityProfessional", b =>
@@ -428,6 +431,17 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
                     b.Navigation("IdTypeThesisNavigation");
                 });
 
+            modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.User", b =>
+                {
+                    b.HasOne("PWIII_Gestion_Defensa_Tesis.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.Audience", b =>
                 {
                     b.Navigation("DefenseActivities");
@@ -441,6 +455,11 @@ namespace PWIII_Gestion_Defensa_Tesis.Migrations
             modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.Professional", b =>
                 {
                     b.Navigation("ActivityProfessionals");
+                });
+
+            modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("PWIII_Gestion_Defensa_Tesis.Models.Student", b =>
