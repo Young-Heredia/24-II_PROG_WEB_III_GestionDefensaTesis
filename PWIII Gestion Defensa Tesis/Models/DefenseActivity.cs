@@ -23,7 +23,7 @@ public partial class DefenseActivity
 
     public int IdThesis { get; set; }
 
-    public byte IdAudience { get; set; }
+    public int IdAudience { get; set; }
 
     public short IdStudent { get; set; }
 	public string StatusThesis { get; set; } = "Pendiente";

@@ -91,7 +91,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(byte id, [Bind("Id,Latitude,Longitude,Name,Status, Direction, Image")] Audience audience)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Latitude,Longitude,Name,Status, Direction, Image")] Audience audience)
         {
 
             if (id != audience.Id)
@@ -160,7 +160,7 @@ namespace PWIII_Gestion_Defensa_Tesis.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AudienceExists(byte id)
+        private bool AudienceExists(int id)
         {
             return _context.Audiences.Any(e => e.Id == id);
         }
