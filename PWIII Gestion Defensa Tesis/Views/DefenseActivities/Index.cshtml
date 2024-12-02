@@ -1,0 +1,77 @@
+﻿@model IEnumerable<PWIII_Gestion_Defensa_Tesis.Models.DefenseActivity>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>DEFENSE ACTIVITIES</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Defense Activity</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DefenseDate)
+            </th>
+            <th>
+                STATE DEFENSE
+            </th>
+            <th>
+                AUDITORIUM
+            </th>
+            <th>
+                STUDENT
+            </th>
+            <th>
+                THESIS
+            </th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DefenseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusThesis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.registerDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAudienceNavigation.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdStudentNavigation.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdThesisNavigation.Name)
+            </td>
+            <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">
+                        <i class="fas fa-eye"></i> Details
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

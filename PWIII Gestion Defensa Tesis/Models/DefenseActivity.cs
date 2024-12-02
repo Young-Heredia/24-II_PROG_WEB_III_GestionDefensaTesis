@@ -9,8 +9,9 @@ public partial class DefenseActivity
     [Key]
     public int Id { get; set; }
 
+    [StringLength(150, MinimumLength = 10, ErrorMessage = "The Description must be between 10 and 150 characters.")]
+    [RegularExpression(@"^(?!.*\s\s)(?!.*\s$)[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\.,;!?&()'\-\""\[\]<>]*$", ErrorMessage = "Only letters, numbers, spaces, and common punctuation marks are allowed, and no consecutive or trailing spaces.")]
     [Required(ErrorMessage = "Description is required")]
-    [StringLength(100, ErrorMessage = "{0} must be: minimum {2} and maximum {1}", MinimumLength = 10)]
     [Display(Name = "DESCRIPTION")]
     public string Description { get; set; } = null!;
 
@@ -21,15 +22,24 @@ public partial class DefenseActivity
     [DataType(DataType.DateTime)]
     public DateTime DefenseDate { get; set; }
 
+    [Required(ErrorMessage = "Thesis is required")]
+    [Display(Name = "PROYECTO")]
     public int IdThesis { get; set; }
 
+    [Required(ErrorMessage = "Auditorium is required")]
+    [Display(Name = "AUDITORIUM")]
     public int IdAudience { get; set; }
 
+    [Required(ErrorMessage = "Student is required")]
+    [Display(Name = "STUDENT")]
     public short IdStudent { get; set; }
-	public string StatusThesis { get; set; } = "Pendiente";
-	public DateTime registerDate { get; set; } = DateTime.Now;
+    [Display(Name = "STATUS ACTIVITY")]
+    public string StatusThesis { get; set; } = "Pendiente";
 
-	public virtual ICollection<ActivityProfessional> ActivityProfessionals { get; set; } = new List<ActivityProfessional>();
+	public DateTime registerDate { get; set; } = DateTime.Now;
+    [Required(ErrorMessage = "Profesional is required")]
+    [Display(Name = "PROFESIONALS")]
+    public virtual ICollection<ActivityProfessional> ActivityProfessionals { get; set; } = new List<ActivityProfessional>();
 
     public virtual Audience IdAudienceNavigation { get; set; } = null!;
 
